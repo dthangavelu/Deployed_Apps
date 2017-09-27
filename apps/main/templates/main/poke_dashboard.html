@@ -1,0 +1,69 @@
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Main</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
+	{% load static %}
+	<link rel="stylesheet" href="{% static 'main/css/style.css'%}">	
+	<!--<script src="{% static 'main/js/script.js' %}"></script>-->
+</head>
+<body> 
+	<div class="container">	  
+		{% if messages %}			
+			{% for message in messages %}
+				<label><font color="red">{{ message }}</font></label>
+			{% endfor %}			
+		{% endif %}
+		
+		<h2><span class="label label-default">Welcome, {{ request.session.logged_in_user }}!</span></h2>	  	  
+		<!--<h2><span class="label label-default">Email: {{ request.session.email }} |  User ID: {{ request.session.user_id }}</span></h2>	  	  -->
+		<a href="/logout">Logout</a>
+		<br><br>
+		<label>{{no_of_tmes_u_r_poked.0.0}} people poked you!</label><br><br>
+		<div border="solid 1px black">
+		{% for users in users_who_poked_u %}
+			<p>{{users.0}} poked you {{users.1}} times</p>
+		{% endfor %}
+		</div>
+		<br>
+		<div>
+			<h3>People you may want to poke:</h3>
+			<br>
+			<table>
+				<tr>
+					<th>Name</th>
+					<th>Alias</th>
+					<th>Email Address</th>
+					<th>Poke History</th>					
+					<th>Action</th>					
+				</tr>	
+				{% for users in other_users %}
+					<tr>						
+						<td>{{users.0}}</a></td>
+						<td>{{users.1}}</td>
+						<td>{{users.2}}</td>						 
+						<td>{{users.3}}</td>		
+						<td><a href="/pokes/{{users.4}}">Poke</a></td>
+					</tr>	
+				{% endfor %}		
+				
+				{% for u in other_users1 %}
+					<tr>						
+						<td>{{u.0}}</a></td>
+						<td>{{u.1}}</td>
+						<td>{{u.2}}</td>						 
+						<td>0</td>		
+						<td><a href="/pokes/{{u.3}}">Poke</a></td>
+					</tr>	
+				{% endfor %}	
+							
+			</table>			
+		</div>
+	</div>	
+</body>
+</html>
